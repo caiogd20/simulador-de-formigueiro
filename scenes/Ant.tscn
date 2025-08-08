@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhtml713pux4v"]
+
+[ext_resource type="Script" uid="uid://b0pys6655q0jn" path="res://scripts/ant.gd" id="1_515oq"]
+[ext_resource type="Texture2D" uid="uid://c5vtlo8b3h3ki" path="res://assets/ant.png" id="2_515oq"]
+[ext_resource type="Texture2D" uid="uid://bhn7gmgst0hdg" path="res://assets/ant_comida.png" id="3_jvskq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jvskq"]
+size = Vector2(8, 16)
+
+[node name="ant" type="Node2D"]
+
+[node name="Ant" type="CharacterBody2D" parent="."]
+script = ExtResource("1_515oq")
+ant = ExtResource("2_515oq")
+ant_food = ExtResource("3_jvskq")
+
+[node name="AntSprite" type="Sprite2D" parent="Ant"]
+rotation = 1.5708
+texture = ExtResource("2_515oq")
+
+[node name="AntCollisionShape" type="CollisionShape2D" parent="Ant"]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_jvskq")
+one_way_collision_margin = 0.0
