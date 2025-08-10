@@ -43,7 +43,7 @@ func _on_food_timer_timeout():
 
 func spawn_ant():
 	var tilemap_fundo = $TileMap/fundo
-	var entidades = $entidades
+	var entidades = $entidades/ants
 	var formigueiro_id = 1 
 
 	for cell in tilemap_fundo.get_used_cells():
@@ -54,22 +54,25 @@ func spawn_ant():
 			ant.position = world_pos
 			entidades.add_child(ant)
 			ant_count += 1
+			#ant.ant_id = ant_count
+			#ant.home_position = world_pos
+			#ant.update_ant_lable()
 			update_ant_counter()
 			return
 
 func spawn_food():
 	var tilemap_fundo = $TileMap/fundo
-	var entidades = $entidades
-	var fonte_comida_id = 2 
+	var entidades = $entidades/foods
+	var fonte_comida_id = 2
 
 	for cell in tilemap_fundo.get_used_cells():
-		var id = tilemap_fundo.get_cell_source_id(cell)
-		if id == fonte_comida_id:
-			var world_pos = tilemap_fundo.map_to_local(cell)
-			var food = food_scene.instantiate()
-			food.position = world_pos
-			entidades.add_child(food)
-			food_count += 1
+			var id = tilemap_fundo.get_cell_source_id(cell)
+			if id == fonte_comida_id:
+				var world_pos = tilemap_fundo.map_to_local(cell)
+				var food = food_scene.instantiate()
+				food.position = world_pos
+				entidades.add_child(food)
+				food_count += 1
 
 func update_ant_counter():
 	ant_counter_label.text = "Formigas: " + str(ant_count)

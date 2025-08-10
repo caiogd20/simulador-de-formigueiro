@@ -6,6 +6,8 @@ extends CharacterBody2D
 @export var collision_avoid_force: float = 0.5 # Quanto maior, mais a formiga se afasta
 @export var ant: Texture2D
 @export var ant_food: Texture2D
+var ant_id: int = 0 # Identificador da formiga
+var home_position: Vector2 = Vector2.ZERO
 
 var move_direction: Vector2 = Vector2.ZERO
 var target_direction: Vector2 = Vector2.ZERO
@@ -19,6 +21,7 @@ func _ready():
 
 func _physics_process(delta):
 	update_ant_sprite()
+	update_ant_lable()
 	time_accumulator += delta
 	if time_accumulator >= change_direction_time:
 		time_accumulator = 0.0
@@ -37,13 +40,17 @@ func _physics_process(delta):
 		if not is_carrying_food:
 			if collision.get_collider().owner != null and collision.get_collider().owner.name == 'comida':
 				is_carrying_food = true
+				collision.get_collider().queue_free()
 
 	rotation = move_direction.angle()
 func update_ant_sprite():
 	if is_carrying_food:
 		AntSprite.texture=ant_food
+		target_direction = (home_position - global_position).normalized()
 	else:
-		AntSprite.texture=ant 
+		AntSprite.texture=ant
+func update_ant_lable():
+	$Label.text = "ID: " + str(ant_id)
 	
 
 func pick_new_direction(force := false):
