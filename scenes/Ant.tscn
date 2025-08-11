@@ -1,32 +1,44 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhtml713pux4v"]
+[gd_scene load_steps=7 format=3 uid="uid://bhtml713pux4v"]
 
-[ext_resource type="Script" uid="uid://b0pys6655q0jn" path="res://scripts/ant.gd" id="1_515oq"]
+[ext_resource type="Script" uid="uid://435fq2kufyod" path="res://scripts/ant.gd" id="1_515oq"]
 [ext_resource type="Texture2D" uid="uid://c5vtlo8b3h3ki" path="res://assets/ant.png" id="2_515oq"]
 [ext_resource type="Texture2D" uid="uid://bhn7gmgst0hdg" path="res://assets/ant_comida.png" id="3_jvskq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvskq"]
 size = Vector2(8, 16)
 
-[node name="ant" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_jvskq"]
+radius = 29.0689
 
-[node name="Ant" type="CharacterBody2D" parent="."]
+[sub_resource type="CircleShape2D" id="CircleShape2D_t4isj"]
+radius = 8.0
+
+[node name="ant" type="Node2D" groups=["ant"]]
+
+[node name="Ant" type="CharacterBody2D" parent="." groups=["ant"]]
 script = ExtResource("1_515oq")
 ant = ExtResource("2_515oq")
 ant_food = ExtResource("3_jvskq")
 
-[node name="AntSprite" type="Sprite2D" parent="Ant"]
+[node name="AntSprite" type="Sprite2D" parent="Ant" groups=["ant"]]
 rotation = 1.5708
 texture = ExtResource("2_515oq")
 
-[node name="AntCollisionShape" type="CollisionShape2D" parent="Ant"]
+[node name="AntCollisionShape" type="CollisionShape2D" parent="Ant" groups=["ant"]]
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_jvskq")
 one_way_collision_margin = 0.0
 
-[node name="Label" type="Label" parent="Ant"]
-clip_contents = true
-offset_left = -43.0
-offset_top = -11.0
-offset_right = -8.0
-offset_bottom = 12.0
-text = "ID: 0"
+[node name="detectar_food" type="Area2D" parent="." groups=["ant"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detectar_food" groups=["ant"]]
+shape = SubResource("CircleShape2D_jvskq")
+
+[node name="coletar_food" type="Area2D" parent="." groups=["ant"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="coletar_food" groups=["ant"]]
+position = Vector2(8, 0)
+shape = SubResource("CircleShape2D_t4isj")
+
+[connection signal="body_entered" from="detectar_food" to="Ant" method="_on_detectar_food_body_entered"]
+[connection signal="body_entered" from="coletar_food" to="Ant" method="_on_coletar_food_body_entered"]

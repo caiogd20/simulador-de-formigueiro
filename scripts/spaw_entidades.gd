@@ -36,6 +36,7 @@ func _ready():
 func _on_ant_timer_timeout():
 	if ant_count < incial_ants:
 		spawn_ant()
+		
 
 func _on_food_timer_timeout():
 	if food_count < max_food:
@@ -50,13 +51,17 @@ func spawn_ant():
 		var id = tilemap_fundo.get_cell_source_id(cell)
 		if id == formigueiro_id:
 			var world_pos = tilemap_fundo.map_to_local(cell)
-			var ant = ant_scene.instantiate()
-			ant.position = world_pos
-			entidades.add_child(ant)
+			var ant_node2d = ant_scene.instantiate()
+			var ant_character_body = ant_node2d.get_node("Ant")
+			ant_node2d.position = world_pos
+			
 			ant_count += 1
-			#ant.ant_id = ant_count
-			#ant.home_position = world_pos
-			#ant.update_ant_lable()
+			
+			if ant_character_body:
+				ant_character_body.ant_id = ant_count
+				ant_character_body.home_position = world_pos
+			
+			entidades.add_child(ant_node2d)
 			update_ant_counter()
 			return
 
@@ -69,10 +74,14 @@ func spawn_food():
 			var id = tilemap_fundo.get_cell_source_id(cell)
 			if id == fonte_comida_id:
 				var world_pos = tilemap_fundo.map_to_local(cell)
-				var food = food_scene.instantiate()
-				food.position = world_pos
-				entidades.add_child(food)
+				var food_node2d = food_scene.instantiate()
+				var food_Static_body = food_node2d.get_node("food")
+				food_node2d.position = world_pos
 				food_count += 1
+				if food_Static_body:
+					food_Static_body.food_id = food_count
+				entidades.add_child(food_node2d)
+				return
 
 func update_ant_counter():
 	ant_counter_label.text = "Formigas: " + str(ant_count)

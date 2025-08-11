@@ -21,7 +21,7 @@ func _ready():
 
 func _physics_process(delta):
 	update_ant_sprite()
-	update_ant_lable()
+
 	time_accumulator += delta
 	if time_accumulator >= change_direction_time:
 		time_accumulator = 0.0
@@ -49,11 +49,18 @@ func update_ant_sprite():
 		target_direction = (home_position - global_position).normalized()
 	else:
 		AntSprite.texture=ant
-func update_ant_lable():
-	$Label.text = "ID: " + str(ant_id)
+
 	
 
 func pick_new_direction(force := false):
 	target_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 	if force:
 		move_direction = target_direction
+
+
+func _on_detectar_food_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.
+
+
+func _on_coletar_food_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.
