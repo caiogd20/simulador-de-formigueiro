@@ -59,8 +59,15 @@ func pick_new_direction(force := false):
 
 
 func _on_detectar_food_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
-
+	# Se a formiga ainda não está carregando comida
+	print("Ant: %s entered detection area: %s" % [ant_id, body.name])
+	if not is_carrying_food and body.is_in_group("comida"):
+		# Muda a direção para ir na direção da comida
+		target_direction = (body.global_position - global_position).normalized()
 
 func _on_coletar_food_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
+	if not is_carrying_food and body.is_in_group("comida"):
+		is_carrying_food = true
+		body.queue_free() # Remove a comida
+		# Direção de volta para casa
+		target_direction = (home_position - global_position).normalized()
