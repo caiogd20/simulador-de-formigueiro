@@ -51,17 +51,16 @@ func spawn_ant():
 		var id = tilemap_fundo.get_cell_source_id(cell)
 		if id == formigueiro_id:
 			var world_pos = tilemap_fundo.map_to_local(cell)
-			var ant_node2d = ant_scene.instantiate()
-			var ant_character_body = ant_node2d.get_node("Ant")
-			ant_node2d.position = world_pos
-			
+			var ant = ant_scene.instantiate()
+			ant.position = world_pos
+			ant.ant_id = ant_count
+			ant.home_position = world_pos
 			ant_count += 1
 			
-			if ant_character_body:
-				ant_character_body.ant_id = ant_count
-				ant_character_body.home_position = world_pos
 			
-			entidades.add_child(ant_node2d)
+			
+			
+			entidades.add_child(ant)
 			update_ant_counter()
 			return
 

@@ -6,13 +6,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ji58j"]
 size = Vector2(8, 8)
 
-[node name="food" type="Node2D" groups=["\"comida\""]]
-
-[node name="food" type="StaticBody2D" parent="." groups=["\"comida\""]]
+[node name="food" type="StaticBody2D" groups=["\"comida\""]]
 script = ExtResource("1_af40f")
 
-[node name="foodSprite" type="Sprite2D" parent="food" groups=["\"comida\""]]
+[node name="foodSprite" type="Sprite2D" parent="." groups=["\"comida\""]]
 texture = ExtResource("2_370ap")
 
-[node name="foodCollisionShape" type="CollisionShape2D" parent="food" groups=["\"comida\""]]
+[node name="foodCollisionShape" type="CollisionShape2D" parent="." groups=["\"comida\""]]
 shape = SubResource("RectangleShape2D_ji58j")
