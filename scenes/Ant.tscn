@@ -8,7 +8,7 @@
 size = Vector2(8, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jvskq"]
-radius = 38.1182
+radius = 32.0156
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t4isj"]
 radius = 8.0
@@ -28,19 +28,22 @@ texture = ExtResource("2_515oq")
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_jvskq")
 one_way_collision_margin = 0.0
+debug_color = Color(0.408038, 0.606974, 5.77569e-07, 0.42)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Ant" groups=["ant"]]
 
-[node name="detectar_food" type="Area2D" parent="." groups=["ant"]]
+[node name="detectar_food" type="Area2D" parent="Ant" groups=["ant"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detectar_food" groups=["ant"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ant/detectar_food" groups=["ant"]]
 shape = SubResource("CircleShape2D_jvskq")
+debug_color = Color(0.360805, 0.617373, 0, 0.42)
 
-[node name="coletar_food" type="Area2D" parent="." groups=["ant"]]
+[node name="coletar_food" type="Area2D" parent="Ant" groups=["ant"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="coletar_food" groups=["ant"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ant/coletar_food" groups=["ant"]]
 position = Vector2(8, 0)
 shape = SubResource("CircleShape2D_t4isj")
+debug_color = Color(0.999218, 0, 0.120026, 0.42)
 
-[connection signal="body_entered" from="detectar_food" to="Ant" method="_on_detectar_food_body_entered"]
-[connection signal="body_entered" from="coletar_food" to="Ant" method="_on_coletar_food_body_entered"]
+[connection signal="body_entered" from="Ant/detectar_food" to="Ant" method="_on_detectar_food_body_entered"]
+[connection signal="body_entered" from="Ant/coletar_food" to="Ant" method="_on_coletar_food_body_entered"]
